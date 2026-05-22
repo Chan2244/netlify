@@ -13,13 +13,15 @@ export default function LoginPage() {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
         const formData = new FormData(form);
-        
-        await login(
-            formData.get('email') as string,
-            formData.get('password') as string
-        );
-        
-        form.reset();
+
+        try {
+            await login(
+                formData.get('email') as string,
+                formData.get('password') as string
+            );
+        } catch (error) {
+            console.error('Caught login rejection:', error);
+        }
     };
 
     const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
